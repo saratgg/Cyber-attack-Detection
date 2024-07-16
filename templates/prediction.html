@@ -1,0 +1,337 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Prediction Result</title>
+   
+    <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f5f5f5;
+            color: #333;
+            margin: 20px;
+        }
+
+        h1, h2 {
+            color: #4285f4;
+            text-align: center;
+        }
+
+        #prediction-container {
+            background-color: #fff;
+            margin: 0 auto;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            margin-top: 20px;
+            padding: 20px;
+            text-align: center;
+        }
+
+        #prediction-result {
+            margin-top: 20px;
+            padding: 10px;
+            border-radius: 4px;
+            background-color: #e0f7fa;
+            color: #0277bd;
+        }
+
+        .normal {
+            color: green;
+            font-size: 24px;
+        }
+
+        .anomaly {
+            color: red;
+            font-size: 24px;
+        }
+        #pie-chart {
+            margin-top: 20px;
+        }
+        .chart-container {
+            display: inline-block;
+            width: 400px;
+            height: 400px;
+            margin: 20px;
+        }
+        .chart-title {
+            text-align: center;
+            font-size: 18px;
+            margin-bottom: 10px;
+            color: #0a0a0a;
+        }
+    </style>
+    
+</head>
+<body>
+
+    <h1>Predictive Analysis Enabled - Cyber Attack Detection</h1>
+
+    <!-- Prediction Result Page -->
+    <div id="prediction-container">
+        <h2 >Prediction Result</h2>
+        <div id="prediction-result" class="{{ prediction_class }}">{{ prediction|safe }}</div>
+        
+    <div id="prediction-container">
+        <h2>Prediction Dashboard</h2></div>
+    <!-- Bar Chart -->
+    <div class="chart-container">
+        <h2 class="chart-title">KNN SCORE CHART</h2>
+        <canvas id="barChart1" width="400" height="400"></canvas>
+    </div>
+
+    <!-- Bar Chart -->
+    <div class="chart-container">
+        <h2 class="chart-title">LOGISTIC REGRESSION SCORE CHART</h2>
+        <canvas id="barChart2" width="400" height="400"></canvas>
+    </div>
+
+    <!-- Bar Chart -->
+    <div class="chart-container">
+        <h2 class="chart-title">DECISION TREE SCORE CHART</h2>
+        <canvas id="barChart3" width="400" height="400"></canvas>
+    </div>
+
+    <!-- Train Line Chart -->
+    <div class="chart-container">
+        <h2 class="chart-title">Train Score</h2>
+        <canvas id="lineChart1" width="400" height="400"></canvas>
+    </div>
+
+     <!-- Test Line Chart -->
+     <div class="chart-container">
+        <h2 class="chart-title">Test Score</h2>
+        <canvas id="lineChart2" width="400" height="400"></canvas>
+    </div>
+
+    <!-- Polar Area Chart -->
+    <div class="chart-container">
+        <h2 class="chart-title">Score Difference Chart</h2>
+        <canvas id="polarAreaChart" width="400" height="400"></canvas>
+    </div>
+
+    <script>
+        //KNN Bar Chart
+        var barChartCtx = document.getElementById('barChart1').getContext('2d');
+        var barChart = new Chart(barChartCtx, {
+            type: 'bar',
+            data: {
+                labels: ['Train Score', 'Test Score'],
+                datasets: [{
+                    label: ['Prediction Score'],
+                    data: [98.0946, 98.1212],
+                    backgroundColor: ['green', 'red']
+                }]
+            },
+            options: {
+                responsive: false,
+                maintainAspectRatio: false,
+                scales: {
+                    y: {
+                        beginAtZero: true
+                    }
+                },
+                plugins: {
+                    datalabels: {
+                        anchor: 'end',
+                        align: 'end',
+                        color: 'black',
+                        font: {
+                            size: 14,
+                            weight: 'bold'
+                        }
+                    }
+                }
+            }
+        });
+
+        //LR Bar Chart
+        var barChartCtx = document.getElementById('barChart2').getContext('2d');
+        var barChart = new Chart(barChartCtx, {
+            type: 'bar',
+            data: {
+                labels: ['Train Score', 'Test Score'],
+                datasets: [{
+                    label: 'Prediction Score',
+                    data: [92.8774, 92.3128],
+                    backgroundColor: ['green', 'red']
+                }]
+            },
+            options: {
+                responsive: false,
+                maintainAspectRatio: false,
+                scales: {
+                    y: {
+                        beginAtZero: true
+                    }
+                },
+                plugins: {
+                    datalabels: {
+                        anchor: 'end',
+                        align: 'end',
+                        color: 'black',
+                        font: {
+                            size: 14,
+                            weight: 'bold'
+                        }
+                    }
+                }
+            }
+        });
+
+        // DT Bar Chart
+        var barChartCtx = document.getElementById('barChart3').getContext('2d');
+        var barChart = new Chart(barChartCtx, {
+            type: 'bar',
+            data: {
+                labels: ['Train Score', 'Test Score'],
+                datasets: [{
+                    label: 'Prediction Score',
+                    data: [100, 99.5369],
+                    backgroundColor: ['green', 'red']
+                }]
+            },
+            options: {
+                responsive: false,
+                maintainAspectRatio: false,
+                scales: {
+                    y: {
+                        beginAtZero: true
+                    }
+                },
+                plugins: {
+                    datalabels: {
+                        anchor: 'end',
+                        align: 'end',
+                        color: 'black',
+                        font: {
+                            size: 14,
+                            weight: 'bold'
+                        }
+                    }
+                }
+            }
+        });
+
+        // Train Line Chart
+        var lineChartCtx = document.getElementById('lineChart1').getContext('2d');
+        var lineChart = new Chart(lineChartCtx, {
+            type: 'line',
+            data: {
+                labels: ['KNN', 'Logistic Regression', 'Decision Tree Classifier'],
+                datasets: [{
+                    label: 'Train Accuracy Graph',
+                    data: [0.980946, 0.928774, 1],
+                    borderColor: ['blue', 'red', 'green'],
+                    fill: false
+                }]
+            },
+            options: {
+                responsive: false,
+                maintainAspectRatio: false,
+                scales: {
+                    y: {
+                        beginAtZero: false
+                    }
+                },
+                title: {
+                    display: true,
+                    text: 'Model Accuracy Over Time'
+                },
+                plugins: {
+                    datalabels: {
+                        anchor: 'end',
+                        align: 'end',
+                        color: 'blue',
+                        font: {
+                            size: 14,
+                            weight: 'bold'
+                        }
+                    }
+                }
+            }
+        });
+
+
+        // Test Line Chart
+        var lineChartCtx = document.getElementById('lineChart2').getContext('2d');
+        var lineChart = new Chart(lineChartCtx, {
+            type: 'line',
+            data: {
+                labels: ['KNN', 'Logistic Regression', 'Decision Tree Classifier'],
+                datasets: [{
+                    label: 'Test Accuracy Graph',
+                    data: [0.981212, 0.923128, 0.995369],
+                    borderColor: ['blue', 'red', 'green'],
+                    fill: false
+                }]
+            },
+            options: {
+                responsive: false,
+                maintainAspectRatio: false,
+                scales: {
+                    y: {
+                        beginAtZero: false
+                    }
+                },
+                title: {
+                    display: true,
+                    text: 'Model Accuracy Over Time'
+                },
+                plugins: {
+                    datalabels: {
+                        anchor: 'end',
+                        align: 'end',
+                        color: 'blue',
+                        font: {
+                            size: 14,
+                            weight: 'bold'
+                        }
+                    }
+                }
+            }
+        });
+
+
+        // Polar Area Chart
+        var polarAreaChartCtx = document.getElementById('polarAreaChart').getContext('2d');
+        var polarAreaChart = new Chart(polarAreaChartCtx, {
+            type: 'polarArea',
+            data: {
+                labels: ['KNN Score Difference', 'Logistic Regression Score Difference', 'Decision Tree Classifier Score Difference'],
+                datasets: [{
+                    data: [0.000266, 0.005646, 0.004631],
+                    backgroundColor: ['rgba(255, 99, 132, 0.5)', 'rgba(54, 162, 235, 0.5)', 'rgba(255, 206, 86, 0.5)'],
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                responsive: false,
+                maintainAspectRatio: false,
+                plugins: {
+                    datalabels: {
+                        display: true,
+                        color: 'black',
+                        textAlign: 'center',
+                        font: {
+                            size: 14,
+                            weight: 'bold'
+                        }
+                    }
+                },
+                title: {
+                    display: true,
+                    text: 'Category Distribution (Polar Area)'
+                }
+            }
+        });
+
+    </script>
+
+
+</body>
+</html>

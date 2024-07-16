@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cyber Attack Detection</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f5f5f5;
+            color: #333;
+            margin: 20px;
+        }
+
+        h1, h2 {
+            color: #4285f4;
+            text-align: center;
+        }
+
+        #predict-container, #models-container {
+            display: none;
+            background-color: #fff;
+            margin: 0 350px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            margin-top: 20px;
+        }
+        #predict-container{
+            display: block;
+        }
+
+        form {
+            margin: 20px 0;
+            text-align: center;
+        }
+
+        input, select{
+            padding: 10px;
+            margin: 5px;
+            width: 200px;
+            align-items: baseline;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+
+        button {
+            padding: 12px;
+            cursor: pointer;
+            background-color: #4285f4;
+            color: #fff;
+            border: none;
+            border-radius: 4px;
+        }
+
+        button:hover {
+            background-color: #3b79c4;
+        }
+
+        #prediction-result {
+            margin-top: 20px;
+            padding: 10px;
+            border-radius: 4px;
+            background-color: #e0f7fa;
+            color: #0277bd;
+        }
+
+        /* Navigation */
+        nav {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        nav button {
+            margin: 0 10px;
+            padding: 10px 20px;
+            border: none;
+            cursor: pointer;
+            border-radius: 4px;
+            color: #fff;
+        }
+
+        #predict-btn {
+            background-color: #4285f4;
+        }
+
+        #models-btn {
+            background-color: #4caf50;
+        }
+        form {
+            padding-top: 10px;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            grid-gap: 10px;
+        }
+
+        label {
+            margin-bottom: 5px;
+        }
+
+        input, select {
+            width: 50%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+
+        button {
+            grid-column: span 2;
+            margin-top: 10px;
+            margin: 20px;
+        }
+        #predict-submit-btn {
+            grid-column: span 2;
+            margin-top: 10px;
+            margin: 20px;
+            /* width: 50%; */
+            margin: auto 35%;
+            align-items: center;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Predictive Analysis Enabled - Cyber Attack Detection</h1>
+
+    <!-- Predict Page -->
+    <div id="predict-container">
+        <h2 style="padding-top: 20px;">Predict</h2>
+        <!-- <form id="prediction-form" onsubmit=""> -->
+        <form action="/predict" method="POST">
+            <label for="protocolType">Protocol Type:</label>
+            <select name="protocolType" required>
+                <option value="0">ICMP</option>
+                <option value="1">TCP</option>
+                <option value="2">UDP</option>
+            </select>
+    
+            <label for="service">Service:</label>
+            <select name="service" required>
+                <option value="0">IRC</option>
+                <option value="1">X11</option>
+                <option value="2">Z39_50</option>
+                <option value="3">AUTH</option>
+                <option value="4">BGP</option>
+                <option value="5">COURIER</option>
+                <option value="6">CSNET_NS</option>
+                <option value="7">CTF</option>
+                <option value="8">DAYTIME</option>
+                <option value="9">DISCARD</option>
+                <option value="10">DOMAIN</option>
+                <option value="11">DOMAIN_U</option>
+                <option value="12">ECHO</option>
+                <option value="13">ECO_I</option>
+                <option value="14">ECR_I</option>
+                <option value="15">EFS</option>
+                <option value="16">EXEC</option>
+                <option value="17">FINGER</option>
+                <option value="18">FTP</option>
+                <option value="19">FTP_DATA</option>
+                <option value="20">GOPHER</option>
+                <option value="21">HOSTNAMES</option>
+                <option value="22">HTTP</option>
+                <option value="23">HTTP_443</option>
+                <option value="24">HTTP_8001</option>
+                <option value="25">IMAP4</option>
+                <option value="26">ISO_TSAP</option>
+                <option value="27">KLOGIN</option>
+                <option value="28">KSHELL</option>
+                <option value="29">LDAP</option>
+                <option value="30">LINK</option>
+                <option value="31">LOGIN</option>
+                <option value="32">MTP</option>
+                <option value="33">NAME</option>
+                <option value="34">NETBIOS_DGM</option>
+                <option value="35">NETBIOS_NS</option>
+                <option value="36">NETBIOS_SSN</option>
+                <option value="37">NETSTAT</option>
+                <option value="38">NNSP</option>
+                <option value="39">NNTP</option>
+                <option value="40">NTP_U</option>
+                <option value="41">OTHER</option>
+                <option value="42">PM_DUMP</option>
+                <option value="43">POP_2</option>
+                <option value="44">POP_3</option>
+                <option value="45">PRINTER</option>
+                <option value="46">PRIVATE</option>
+                <option value="47">RED_I</option>
+                <option value="48">REMOTE_JOB</option>
+                <option value="49">RJE</option>
+                <option value="50">SHELL</option>
+                <option value="51">SMTP</option>
+                <option value="52">SQL_NET</option>
+                <option value="53">SSH</option>
+                <option value="54">SUNRPC</option>
+                <option value="55">SUPDUP</option>
+                <option value="56">SYSTAT</option>
+                <option value="57">TELNET</option>
+                <option value="58">TIM_I</option>
+                <option value="59">TIME</option>
+                <option value="60">URH_I</option>
+                <option value="61">URP_I</option>
+                <option value="62">UUCP</option>
+                <option value="63">UUCP_PATH</option>
+                <option value="64">VMNET</option>
+                <option value="65">WHOIS</option>
+            </select>
+    
+            <label for="flag">Flag:</label>
+            <select name="flag" required>
+                <option value="0">OTH</option>
+                <option value="1">REJ</option>
+                <option value="2">RSTO</option>
+                <option value="3">RSTOS0</option>
+                <option value="4">RSTR</option>
+                <option value="5">S0</option>
+                <option value="6">S1</option>
+                <option value="7">S2</option>
+                <option value="8">S3</option>
+                <option value="9">SF</option>
+                <option value="10">SH</option>
+            </select>
+    
+            <label for="srcBytes">Source Bytes:</label>
+            <input type="number" name="srcBytes" required>
+    
+            <label for="dstBytes">Destination Bytes:</label>
+            <input type="number" name="dstBytes" required>
+    
+            <label for="count">Count:</label>
+            <input type="number" name="count" required>
+    
+            <label for="sameSrvRate">Same Service Rate:</label>
+            <input type="number" name="sameSrvRate" required step="0.01">
+    
+            <label for="diffSrvRate">Different Service Rate:</label>
+            <input type="number" name="diffSrvRate" required step="0.01">
+    
+            <label for="dstHostSrvCount">Destination Host Service Count:</label>
+            <input type="number" name="dstHostSrvCount" required>
+    
+            <label for="dstHostSameSrvRate">Destination Host Same Service Rate:</label>
+            <input type="number" name="dstHostSameSrvRate" required step="0.01">
+
+            <button id="predict-submit-btn" type="submit">Make Prediction</button>
+        </form>
+        <!-- <h3 style="color: green; size: 50px;"></h3>
+        <h3 style="color: red; size: 50px;"></h3> -->
+        {{prediction}}
+
+        <!-- <div id="prediction-result"></div> -->
+    </div>
+
+</body>
+</html>
